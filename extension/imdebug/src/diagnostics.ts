@@ -19,6 +19,7 @@ function readDocumentProbs(doc: vscode.TextDocument) : Promise<Array<DiagnosticI
             "Content-Type": "application/json",
           },
         body: JSON.stringify({
+            filename: doc.fileName,
             code: doc.getText(),
         })
     }).then(response => {
@@ -66,6 +67,7 @@ export function refreshDocumentNow(diagnosticsCollection: vscode.DiagnosticColle
 		refreshDiagnostics(vscode.window.activeTextEditor.document, diagnosticsCollection);
 	}
 }
+
 
 export function subscribeToDocumentChanges(context: vscode.ExtensionContext, diagnosticsCollection: vscode.DiagnosticCollection): void {
 	refreshDocumentNow(diagnosticsCollection);
